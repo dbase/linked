@@ -181,11 +181,11 @@ void *link_pop(link_t *link, int pos) {
 } /* link_pop() */
 
 int link_truncate(link_t *link, int pos) {
-	if(pos >= link->length || pos < 0)
+	if(pos + 1 > link->length || pos < 0)
 		return 1;
 
-	/* delete the position and everything after it */
-	int position = pos;
+	/* delete everything after the position */
+	int position = pos + 1;
 	while(!link_remove(link, position));
 
 	/* not all of the links where deleted */
