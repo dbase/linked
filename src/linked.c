@@ -232,19 +232,17 @@ int link_shorten(link_t *link, int num) {
 } /* link_shorten() */
 
 link_iter *link_iter_init(link_t *link) {
-	if(!link)
+	if(!link || !link->chain)
 		return NULL;
 
 	/* allocate iterator */
 	link_iter *iter = malloc(sizeof(link_iter));
 
-	/* set everything to zero */
-	iter->content = NULL;
+	/* set the iterator to first item */
+	iter->content = link->chain->content;
 	iter->internal.link = link;
-	iter->internal.node = NULL;
+	iter->internal.node = link->chain;
 
-	/* choose first item */
-	link_iter_next(iter);
 	return iter;
 } /* link_iter_init() */
 
@@ -252,14 +250,11 @@ int link_iter_next(link_iter *iter) {
 	if(!iter)
 		return 1;
 
-	/* select next link */
-	if(!iter->internal.node)
-		iter->internal.node = iter->internal.link->chain;
-	else
+	if(iter->internal.node && iter->internal.node->next)
+		/* select next link */
 		iter->internal.node = iter->internal.node->next;
-
-	/* no links left */
-	if(!iter->internal.node)
+	else
+		/* no links left */
 		return 1;
 
 	/* updated link */
