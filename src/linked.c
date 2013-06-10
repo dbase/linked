@@ -296,3 +296,8 @@ int link_iter_next(link_iter *iter) {
 	iter->content = iter->internal.node->content;
 	return 0;
 } /* link_iter_next() */
+
+void link_iter_free(link_iter *iter) {
+	/* wrapper to free iterator */
+	free(iter);
+} /* link_iter_free() */

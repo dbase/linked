@@ -20,7 +20,7 @@ int main(void) {
 			printf("%d ", *(int *) ii->content);
 	} while(!link_iter_next(ii));
 	printf("\n");
-	free(ii);
+	link_iter_free(ii);
 
 	printf("shorten list by 25\n");
 	link_shorten(table, 25);
@@ -32,7 +32,7 @@ int main(void) {
 			printf("%d ", *(int *) ii->content);
 	} while(!link_iter_next(ii));
 	printf("\n");
-	free(ii);
+	link_iter_free(ii);
 
 	printf("truncate list to 56\n");
 	link_truncate(table, 56);
@@ -44,7 +44,7 @@ int main(void) {
 			printf("%d ", *(int *) ii->content);
 	} while(!link_iter_next(ii));
 	printf("\n");
-	free(ii);
+	link_iter_free(ii);
 
 	link_free(table);
 	return 0;
