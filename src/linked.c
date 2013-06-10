@@ -84,24 +84,30 @@ void link_free(link_t *link) {
 	pop_container = NULL;
 } /* link_free() */
 
+link_node *link_node_get(link_t *link, int index) {
+	/* initialise current and next links */
+	link_node *current = link->chain;
+
+	/* find link to append new link to */
+	while(index && current) {
+		/* get next link */
+		current = current->next;
+		index--;
+	}
+
+	/* index not found or link length is inaccurate */
+	if(index || !current)
+		return NULL;
+
+	return current;
+}
+
 int link_insert(link_t *link, int pos, void *content, int contentlen) {
 	if(pos >= link->length || pos < 0 || !content || contentlen < 1)
 		return 1;
 
-	/* initialise current and next links */
-	int position = pos;
-	link_node *current = link->chain, *next = link->chain->next;
-
-	/* find link to append new link to */
-	while(position && current) {
-		/* get next link */
-		current = current->next;
-		position--;
-	}
-
-	/* position not found or link->length is inaccurate */
-	if(position || !current)
-		return 1;
+	/* find current link */
+	link_node *current = link_node_get(link, pos), *next = NULL;
 
 	/* allocate new link information */
 	next = current->next;
@@ -125,20 +131,8 @@ int link_remove(link_t *link, int pos) {
 	if(pos >= link->length || pos < 0)
 		return 1;
 
-	/* initialise current, previous and next links */
-	int position = pos;
-	link_node *current = link->chain, *prev = NULL, *next = link->chain->next;
-
-	/* find link to append new link to */
-	while(position && current) {
-		/* get next link */
-		current = current->next;
-		position--;
-	}
-
-	/* position not found or link->length is inaccurate */
-	if(position || !current)
-		return 1;
+	/* find current link */
+	link_node *current = link_node_get(link, pos), *next = NULL, *prev = NULL;
 
 	/* set previous and next links */
 	prev = current->prev;
@@ -163,20 +157,8 @@ void *link_get(link_t *link, int pos) {
 	if(pos >= link->length || pos < 0)
 		return NULL;
 
-	/* initialise current chain */
-	int position = pos;
-	link_node *current = link->chain;
-
-	/* find link to append new link to */
-	while(position && current) {
-		/* get next link */
-		current = current->next;
-		position--;
-	}
-
-	/* position not found or link->length is inaccurate */
-	if(position || !current)
-		return NULL;
+	/* find current link */
+	link_node *current = link_node_get(link, pos);
 
 	/* return the found content */
 	return current->content;
@@ -186,20 +168,8 @@ void *link_pop(link_t *link, int pos) {
 	if(pos >= link->length || pos < 0)
 		return NULL;
 
-	/* initialise current chain */
-	int position = pos;
-	link_node *current = link->chain;
-
-	/* find link to append new link to */
-	while(position && current) {
-		/* get next link */
-		current = current->next;
-		position--;
-	}
-
-	/* position not found or link->length is inaccurate */
-	if(position || !current)
-		return NULL;
+	/* find current link */
+	link_node *current = link_node_get(link, pos);
 
 	/* copy the link's content to a temporary variable */
 	pop_container = realloc(pop_container, current->contentlen);
