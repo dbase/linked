@@ -13,11 +13,11 @@ int main(void) {
 	while(to--)
 		link_append(table, &to, sizeof(int));
 
-	printf("print list of length %d\n", table->length - 1);
+	printf("print list of length %d\n", link_length(table) - 1);
 	ii = link_iter_init(table);
 	do {
-		if(ii->content)
-			printf("%d ", *(int *) ii->content);
+		if(link_iter_content(ii))
+			printf("%d ", *(int *) link_iter_content(ii));
 	} while(!link_iter_next(ii));
 	printf("\n");
 	link_iter_free(ii);
@@ -25,11 +25,11 @@ int main(void) {
 	printf("shorten list by 25\n");
 	link_shorten(table, 25);
 
-	printf("print list of length %d\n", table->length - 1);
+	printf("print list of length %d\n", link_length(table) - 1);
 	ii = link_iter_init(table);
 	do {
-		if(ii->content)
-			printf("%d ", *(int *) ii->content);
+		if(link_iter_content(ii))
+			printf("%d ", *(int *) link_iter_content(ii));
 	} while(!link_iter_next(ii));
 	printf("\n");
 	link_iter_free(ii);
@@ -37,11 +37,11 @@ int main(void) {
 	printf("truncate list to 56\n");
 	link_truncate(table, 56);
 
-	printf("print list of length %d\n", table->length - 1);
+	printf("print list of length %d\n", link_length(table) - 1);
 	ii = link_iter_init(table);
 	do {
-		if(ii->content)
-			printf("%d ", *(int *) ii->content);
+		if(link_iter_content(ii))
+			printf("%d ", *(int *) link_iter_content(ii));
 	} while(!link_iter_next(ii));
 	printf("\n");
 	link_iter_free(ii);
