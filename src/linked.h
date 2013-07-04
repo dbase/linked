@@ -31,7 +31,7 @@ typedef struct link_iter link_iter;
 link_t *link_init(void);
 void link_free(link_t *);
 
-int link_insert(link_t *, int, void *, int);
+int link_insert(link_t *, int, void *, size_t);
 
 /* macros for appending and prepending content */
 #define link_append(link, content, len) link_insert(link, link_length(link) - 1, content, len)

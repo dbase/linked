@@ -29,7 +29,7 @@
 
 typedef struct link_node {
 	void *content;
-	int contentlen;
+	size_t contentlen;
 
 	struct link_node *prev;
 	struct link_node *next;
@@ -127,7 +127,7 @@ link_node *link_node_get(link_t *link, int index) {
 	return current;
 } /* link_node_get() */
 
-int link_insert(link_t *link, int pos, void *content, int contentlen) {
+int link_insert(link_t *link, int pos, void *content, size_t contentlen) {
 	if(pos >= link->length || pos < 0 || !content || contentlen < 1)
 		return 1;
 
