@@ -4,8 +4,8 @@
 #include <linked.h>
 
 int main(void) {
-	link_t *table = link_init();
-	link_iter *ii = NULL;
+	struct link_t *table = link_init();
+	struct link_iter *ii = NULL;
 
 	/* generate a list */
 	printf("generating list\n");
