@@ -27,28 +27,6 @@
 
 #include "linked.h"
 
-struct link_node {
-	void *content;
-	size_t contentlen;
-
-	struct link_node *prev;
-	struct link_node *next;
-};
-
-struct link_t {
-	struct link_node *chain;
-	int length;
-};
-
-struct link_iter {
-	void *content;
-
-	struct link_iter_internal {
-		struct link_t *link;
-		struct link_node *node;
-	} internal;
-};
-
 static void *pop_container = NULL;
 
 struct link_t *link_init(void) {
