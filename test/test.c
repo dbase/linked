@@ -46,6 +46,22 @@ int main(void) {
 	printf("\n");
 	link_iter_free(ii);
 
+	printf("setting everything to 42\n");
+	int i;
+	for(i = 0; i < table->length; i++) {
+		int num = 42;
+		link_set(table, i, &num, sizeof(int));
+	}
+
+	printf("print list of length %d\n", table->length - 1);
+	ii = link_iter_init(table);
+	do {
+		if(ii->content)
+			printf("%d ", *(int *) ii->content);
+	} while(!link_iter_next(ii));
+	printf("\n");
+	link_iter_free(ii);
+
 	link_free(table);
 	return 0;
 }
