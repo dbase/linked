@@ -136,6 +136,9 @@ int link_set(struct link_t *link, int pos, void *content, size_t contentlen) {
 
 	struct link_node *current = link_node_get(link, pos);
 
+	if(!current)
+		return 1;
+
 	if(contentlen != current->contentlen)
 		current->content = realloc(current->content, contentlen);
 
