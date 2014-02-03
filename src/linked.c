@@ -130,6 +130,21 @@ int link_insert(struct link_t *link, int pos, void *content, size_t contentlen) 
 	return 0;
 } /* link_insert() */
 
+int link_set(struct link_t *link, int pos, void *content, size_t contentlen) {
+	if(pos >= link->length || pos < 0 || !content || contentlen < 1)
+		return 1;
+
+	struct link_node *current = link_node_get(link, pos);
+
+	if(contentlen != current->contentlen)
+		current->content = realloc(current->content, contentlen);
+
+	current->contentlen = contentlen;
+	memcpy(current->content, content, contentlen);
+
+	return 0;
+} /* link_set() */
+
 int link_remove(struct link_t *link, int pos) {
 	if(!link || pos >= link->length || pos < 0)
 		return 1;

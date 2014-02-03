@@ -50,6 +50,7 @@ struct link_t *link_init(void);
 void link_free(struct link_t *);
 
 int link_insert(struct link_t *, int, void *, size_t);
+int link_set(struct link_t *, int, void *, size_t);
 
 /* macros for appending and prepending content */
 #define link_append(link, content, len) link_insert(link, link->length - 1, content, len)
